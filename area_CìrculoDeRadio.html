@@ -1,0 +1,54 @@
+<!DOCTYPE html>            <!-- Esta es la declaración del tipo de documento que especifica que el documento es un archivo HTML -->   
+<html lang="en">               <!-- Abre la etiqueta y especifica que el idioma utilizado en el documento es el inglés  -->  
+<head>                         <!-- Abre la sección del encabezado del documento.       -->  
+  <meta charset="UTF-8">      <!-- Especifica el conjunto de caracteres UTF-8 para el documento, lo que asegura que los caracteres especiales se muestren correctamente. -->  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">   <!-- Establece la configuración de la vista en dispositivos móviles, asegurando que el ancho se ajuste al ancho del dispositivo y la escala inicial sea de 1. -->  
+  <title>Calculadora de área de círculo</title>     <!-- Define el título del documento que se mostrará en la pestaña del navegador.  -->  
+</head>        <!--  Cierra la sección del encabezado. -->  
+<body>        <!-- Abre la sección del cuerpo del documento. -->  
+  <div id="root"></div>        <!--  Crea un contenedor con el identificador "root". Este será el punto de montaje para la aplicación de React. -->  
+
+  <script src="https://unpkg.com/react/umd/react.development.js"></script>      <!--Importa la biblioteca React desde una URL externa utilizando el atributo src de la etiqueta script. Esta URL apunta a la versión de desarrollo de React. --> 
+  <script src="https://unpkg.com/react-dom/umd/react-dom.development.js"></script>     <!-- Importa la biblioteca ReactDOM desde una URL externa utilizando el atributo src de la etiqueta script. Esta URL apunta a la versión de desarrollo de ReactDOM. --> 
+  <script src="https://unpkg.com/babel-standalone/babel.min.js"></script>       <!-- Importa Babel desde una URL externa utilizando el atributo src de la etiqueta script. Babel es un compilador que permite utilizar características de JavaScript más recientes en navegadores antiguos.--> 
+
+
+
+  <!-- Aquí comienza el código JavaScript -->
+  <script type="text/babel">              // Abre una etiqueta script con el atributo type establecido en "text/babel". Esto indica que el código dentro del script será escrito en JSX y será procesado por Babel.
+    const { useState } = React;             // Crea una constante llamada useState y la inicializa con la función useState de la biblioteca React. Esta línea desestructura el objeto React y extrae solo la función useState.
+
+    const CircleAreaCalculator = () => {             // Define una función de componente de React llamada CircleAreaCalculator. Este componente calculará el área de un círculo.
+      const [radius, setRadius] = useState('');      // Declara una variable de estado llamada radius y una función setRadius para actualizar su valor. Inicializa radius con una cadena vacía.
+      const [area, setArea] = useState(0);           // Declara una variable de estado llamada area y una función setArea para actualizar su valor. Inicializa area con 0.
+
+      const handleRadiusChange = (e) => {            // Define una función llamada handleRadiusChange que se ejecutará cuando haya un cambio en el campo de entrada del radio del círculo. Toma el evento e como argumento.
+        setRadius(e.target.value);                   // Actualiza el valor de radius con el nuevo valor introducido en el campo de entrada. e.target.value contiene el valor actual del campo de entrada.
+      };
+
+      const calculateArea = () => {                  // Define una función llamada calculateArea que se ejecutará cuando se haga clic en el botón "Calcular".
+        const parsedRadius = parseFloat(radius);     // Convierte el valor de radius a un número decimal utilizando parseFloat(). Almacena el resultado en la variable parsedRadius.
+        if (!isNaN(parsedRadius)) {                   // Verifica si parsedRadius es un número válido. isNaN() devuelve true si el valor pasado no es un número. 
+          const calculatedArea = Math.PI * Math.pow(parsedRadius, 2);       // Calcula el área del círculo utilizando la fórmula π * r^2, donde parsedRadius es el radio del círculo. Almacena el resultado en la variable calculatedArea.
+          setArea(calculatedArea);                    // Actualiza el valor de area con el valor calculado del área del círculo.
+        }
+      };
+
+      return (           // La sección del retorno (return) es el contenido que se renderizará en el navegador. Utiliza JSX, una sintaxis similar a HTML, para describir la estructura y contenido de la interfaz de usuario.
+        <div>         {/* Ayuda a agrupar y organizar los elementos, actúa como un contenedor para organizar y agrupar los elementos relacionados en el componente CircleAreaCalculator. */} 
+          <h2>Calculadora de área de círculo</h2>         {/* Muestra un encabezado con el título de la calculadora. */} 
+          <label>                                        {/* Crea una etiqueta de formulario para el campo de entrada del radio del círculo. */} 
+            Radio del círculo:
+            <input type="number" value={radius} onChange={handleRadiusChange} />      {/* Crea un campo de entrada numérico donde los usuarios pueden ingresar el radio del círculo. El valor del campo está vinculado a radius y el evento onChange se dispara cuando hay un cambio en el campo. */} 
+          </label>                                          {/* Cierre una etiqueta de formulario */} 
+          <button onClick={calculateArea}>Calcular</button>   {/* Crea un botón que, al hacer clic, ejecuta la función calculateArea para calcular el área del círculo. */}
+          <p>El área del círculo es: {area}</p>             {/* Muestra el resultado del cálculo del área del círculo utilizando la variable de estado area */}
+        </div>            // cierre de la función div.
+      );
+    };
+
+    ReactDOM.render(<CircleAreaCalculator />, document.getElementById('root'));     // Renderiza el componente CircleAreaCalculator en el elemento con el identificador "root" en el documento HTML.
+ 
+ </script>     <!-- cierra una etiqueta script -->   
+</body>   <!--  Cierra la sección del cuerpo del documento --> 
+</html>   <!-- cierra de html --> 
